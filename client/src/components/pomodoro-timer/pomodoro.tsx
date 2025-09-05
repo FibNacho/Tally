@@ -12,10 +12,11 @@ function PomodoroTimer() {
   useEffect(() => {
     if (isPlaying) {
       const intervalId = setInterval(() => {
-        setTimeLeft(() => defaultTime - (Date.now() - startTime));
-      }, 1);
+        setTimeLeft((t) => t - (Date.now() - startTime));
+      }, 1000);
       intervalRef.current = intervalId;
     }
+    return () => clearInterval(intervalRef.current);
   }, [isPlaying]);
 
   function handleStart() {
